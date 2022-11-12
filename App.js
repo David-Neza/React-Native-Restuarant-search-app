@@ -30,8 +30,9 @@
 // // });
 
 import { StatusBar } from "expo-status-bar";
-import { View, Text, StyleSheet, FlatList } from "react-native";
-import CategoryItem from "./src/components/CategoryItem";
+import { useState } from "react";
+import { View, StyleSheet } from "react-native";
+import Categories from "./src/components/Categories";
 import Header from "./src/components/Header";
 import SearchBar from "./src/components/SearchBar";
 
@@ -58,19 +59,13 @@ export default function App() {
       imageUrl: require("./src/assets/images/steak.png"),
     },
   ];
+  const [term, setTerm] = useState("Burger");
+
   return (
     <View style={styles.container}>
       <Header />
-      <SearchBar />
-      <FlatList
-        data={commonCategories}
-        renderItem={({ item }) => {
-          return <CategoryItem name={item.name} imageUrl={item.imageUrl} />;
-        }}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        keyExtractor={(category) => category.name}
-      />
+      <SearchBar setTerm={setTerm} />
+      <Categories categories={commonCategories} setTerm={setTerm} term={term} />
       <StatusBar />
     </View>
   );

@@ -1,13 +1,24 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { elevation } from "./common/styles";
-const CategoryItem = ({ name, imageUrl }) => {
+const CategoryItem = ({ name, imageUrl, index, active, handlePress }) => {
   return (
-    <View style={[styles.container, elevation]}>
-      <View style={styles.imageCOntainer}>
-        <Image source={imageUrl} style={styles.image} />
+    <TouchableOpacity onPress={handlePress}>
+      <View
+        style={[
+          styles.container,
+          elevation,
+          index === 0 ? { marginLeft: 25 } : { marginLeft: 15 },
+          active
+            ? { backgroundColor: "rgb(241,186,87) " }
+            : { backgroundColor: "white" },
+        ]}
+      >
+        <View style={styles.imageCOntainer}>
+          <Image source={imageUrl} style={styles.image} />
+        </View>
+        <Text style={styles.header}>{name}</Text>
       </View>
-      <Text style={styles.header}>{name}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -19,7 +30,6 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 50,
     marginVertical: 14,
-    marginHorizontal: 25,
     backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
